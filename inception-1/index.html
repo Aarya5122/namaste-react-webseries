@@ -5,7 +5,13 @@
     </head>
     <body>
         <div id="root">
-            <h1>Starting the webseries journey</h1>
         </div>
+        <script>
+            const heading = document.createElement("h1");
+            heading.innerText = "Starting this web-series journey";
+
+            const rootElement = document.getElementById("root");
+            rootElement.appendChild(heading);
+        </script>
     </body>
 </html>
