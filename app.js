@@ -6,4 +6,4 @@ const JsxElement = () => (
 );
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(JsxElement());
+root.render(<JsxElement/>);
