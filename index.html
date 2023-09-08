@@ -14,11 +14,19 @@
 			src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
 		></script> -->
 
-		<div id="root">
-			<h1>Aarya</h1>
-		</div>
+		<div id="root"></div>
 
 		<!-- Added module type as browser scripts cannot have imports and exports -->
-		<script src="./app.js"  type="module"  ></script>
+		<script src="./App.js" type="module"></script>
+
+		<script>
+			const para = document.createElement("p");
+			const text = document.createTextNode(
+				"Trying out stuff in  plain vanilla JS."
+			);
+			para.append(text);
+			const body = document.getElementsByTagName("body");
+			body[0].append(para);
+		</script>
 	</body>
 </html>
