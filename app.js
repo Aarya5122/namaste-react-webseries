@@ -25,7 +25,8 @@ const child = React.createElement("div", { id: "child" }, [heading, para]);
 
 const parent = React.createElement("div", { id: "parent" }, child);
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(heading);
+const roots = ReactDOM.createRoot(root);
+roots.render(heading);
+console.log(root)
 
 console.log(parent);
