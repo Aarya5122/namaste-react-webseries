@@ -1,9 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-
-const JsxElement = () => (
-	<h1>here we go with the chapter one of react and three of the course.</h1>
-);
+import "./index.css"
+import App from "./App"
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<JsxElement/>);
+root.render(<App />);
