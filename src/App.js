@@ -1,5 +1,11 @@
-const App = () => (
-	<h1>here we go with the chapter one of react and three of the course.</h1>
-);
+import Home from "./pages/home";
+
+const App = () => {
+	return (
+		<>
+			<Home />
+		</>
+	);
+};
 
 export default App;
