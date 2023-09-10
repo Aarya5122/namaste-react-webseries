@@ -7,7 +7,8 @@ import RestroCard from "../components/RestroCards";
 import Testimonial from "../components/Testimonial";
 import Footer from "../components/Footer";
 
-import foods from "../../testdata";
+import foods from "../utils/mockData";
+import Menu from "./Menu";
 
 const restrocards = foods.slice(0, 4);
 
@@ -81,6 +82,7 @@ function Home() {
 					<Testimonial />
 				</div>
 			</section>
+			<Menu menuItems={foods} />
 			<Footer />
 		</>
 	);

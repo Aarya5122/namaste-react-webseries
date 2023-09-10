@@ -1,3 +1,4 @@
+import { CLOUDINARY_URL } from "../utils/constants";
 import Button from "./Button";
 
 function RestroCard({
@@ -11,7 +12,7 @@ function RestroCard({
 	return (
 		<div>
 			<img
-				src={`https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_208,h_208,c_fit/${foodImageSource}`}
+				src={`${CLOUDINARY_URL}/${foodImageSource}`}
 				alt="meal-image"
 			/>
 			<p>{name}</p>
