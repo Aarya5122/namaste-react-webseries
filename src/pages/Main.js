@@ -7,12 +7,47 @@ import RestroCard from "../components/RestroCards";
 import Testimonial from "../components/Testimonial";
 import Footer from "../components/Footer";
 
-import foods from "../utils/mockData";
 import Menu from "./Menu";
+import { useEffect, useState } from "react";
 
-const restrocards = foods.slice(0, 4);
+function Main() {
+	const [foods, setFoods] = useState([]);
+	const [restrocards, setRestrocards] = useState([]);
 
-function Home() {
+	async function fetchFood() {
+		let food = await fetch(
+			"https://www.zomato.com/webroutes/getPage?page_url=/bangalore/meghana-foods-residency-road/order&location=&isMobile=0"
+		);
+		food = await food.json();
+		setFoods([
+			...food?.page_data?.order?.menuList?.menus
+				?.map((menuObj) => {
+					let categoryFoods = menuObj?.menu?.categories?.map(
+						(categoryObj) => {
+							const items = categoryObj?.category?.items;
+							return items;
+						}
+					);
+					categoryFoods = categoryFoods?.reduce(
+						(accumulatorArray, itemArray) => {
+							return [...accumulatorArray, ...itemArray];
+						},
+						[]
+					);
+					return categoryFoods;
+				})
+				?.reduce((accumulatorArray, menuItems) => {
+					accumulatorArray.push(...menuItems);
+					return accumulatorArray;
+				}, []),
+		]);
+		// setRestrocards(foods.slice(0, 4));
+	}
+
+	useEffect(() => {
+		fetchFood();
+	}, []);
+
 	return (
 		<>
 			<Header />
@@ -45,26 +80,18 @@ function Home() {
 					<Button value="See All" />
 				</div>
 				<div>
-					{restrocards.map(
-						({
-							id,
-							name,
-							imageId,
-							description,
-							ratings,
-							price,
-							cuisines,
-						}) => (
+					{foods?.slice(0, 4)?.map(({ item }) => {
+						return (
 							<RestroCard
-								key={id}
-								name={name}
-								description={description}
-								price={price / 100}
-								rating={ratings?.aggregatedRating?.rating}
-								foodImageSource={imageId}
+								key={item.id}
+								name={item.name}
+								description={item.desc}
+								price={item.price}
+								rating={item.rating}
+								foodImageSource={item.item_image_thumb_url}
 							/>
-						)
-					)}
+						);
+					})}
 				</div>
 			</section>
 			<section>
@@ -82,10 +109,11 @@ function Home() {
 					<Testimonial />
 				</div>
 			</section>
+
 			<Menu menuItems={foods} />
 			<Footer />
 		</>
 	);
 }
 
-export default Home;
+export default Main;

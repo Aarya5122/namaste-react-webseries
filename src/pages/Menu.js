@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import RestroCard from "../components/RestroCards";
 import Button from "../components/Button";
 
@@ -6,6 +6,7 @@ function Menu({ menuItems }) {
 	const [menu, setMenu] = useState(menuItems);
 	const [filterApplied, setFilterApplied] = useState(false);
 
+	useEffect(() => setMenu(menuItems), [menuItems]);
 	return (
 		<div>
 			<section>
@@ -17,37 +18,32 @@ function Menu({ menuItems }) {
 					action={(states, setStates, staticData) => {
 						setStates?.setFilterApplied(!states.filterApplied);
 						const menuValue = filterApplied
-							? staticData.menuItems
-							: states.menu.filter(
-									(item) =>
-										+item?.ratings?.aggregatedRating
-											?.rating > 4
-							  );
+							? menuItems
+							: states.menu.filter((item) => {
+									return (
+										+parseFloat(
+											item?.item?.rating?.value
+										).toPrecision(2) > 4.0
+									);
+							  });
 						setStates.setMenu(menuValue);
 					}}
 				/>
 			</section>
 			<section>
-				{menu.map(
-					({
-						id,
-						name,
-						imageId,
-						description,
-						ratings,
-						price,
-						cuisines,
-					}) => (
+				{"4star"}
+				{menu.map(({ item }) => {
+					return (
 						<RestroCard
-							key={id}
-							name={name}
-							description={description}
-							price={price / 100}
-							rating={ratings?.aggregatedRating?.rating}
-							foodImageSource={imageId}
+							key={item?.id}
+							name={item?.name}
+							description={item?.desc}
+							price={item?.price}
+							rating={item?.rating}
+							foodImageSource={item?.item_image_thumb_url}
 						/>
-					)
-				)}
+					);
+				})}
 			</section>
 		</div>
 	);

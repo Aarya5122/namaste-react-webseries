@@ -11,15 +11,17 @@ function RestroCard({
 }) {
 	return (
 		<div>
-			<img
-				src={`${CLOUDINARY_URL}/${foodImageSource}`}
-				alt="meal-image"
-			/>
+			<img src={foodImageSource} alt="meal-image" />
 			<p>{name}</p>
 			<p>{hotel}</p>
 			<p>{description}</p>
 			<p>
-				<span>{rating}</span> <span>{price}</span>
+				<span>
+					{rating?.value
+						? parseFloat(rating?.value).toPrecision(2)
+						: ""}
+				</span>{" "}
+				<span>{price}</span>
 			</p>
 			<Button value="Add to cart" />
 		</div>
