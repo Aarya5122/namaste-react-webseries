@@ -4,12 +4,45 @@ import Button from "../components/Button";
 
 function Menu({ menuItems }) {
 	const [menu, setMenu] = useState(menuItems);
+	const [search, setSearch] = useState("");
 	const [filterApplied, setFilterApplied] = useState(false);
 
 	useEffect(() => setMenu(menuItems), [menuItems]);
+
+	function searchOnChange(e) {
+		e.preventDefault();
+		setSearch(e.target.value);
+	}
+
 	return (
 		<div>
 			<section>
+				<input
+					type="text"
+					name="search"
+					id="search"
+					onChange={searchOnChange}
+					value={search}
+				/>
+				<Button
+					value="search"
+					states={{ menu, search }}
+					setStates={{ setMenu }}
+					staticData={{ menuItems }}
+					action={(states, setStates, staticData) => {
+						!states.search
+							? setStates.setMenu(staticData.menuItems)
+							: setStates.setMenu(
+									menuItems?.filter((item) => {
+										return item?.item?.name
+											?.toLowerCase()
+											?.includes(
+												states.search?.toLowerCase()
+											);
+									})
+							  );
+					}}
+				/>
 				<Button
 					value={!filterApplied ? "4 Stars" : "Cancel"}
 					states={{ menu, filterApplied }}
@@ -31,7 +64,6 @@ function Menu({ menuItems }) {
 				/>
 			</section>
 			<section>
-				{"4star"}
 				{menu.map(({ item }) => {
 					return (
 						<RestroCard

@@ -9,6 +9,7 @@ import Footer from "../components/Footer";
 
 import Menu from "./Menu";
 import { useEffect, useState } from "react";
+import RestrocardShimmer from "../components/RestrocardShimmer";
 
 function Main() {
 	const [foods, setFoods] = useState([]);
@@ -41,12 +42,15 @@ function Main() {
 					return accumulatorArray;
 				}, []),
 		]);
-		// setRestrocards(foods.slice(0, 4));
 	}
 
 	useEffect(() => {
 		fetchFood();
 	}, []);
+
+	useEffect(() => {
+		setRestrocards(foods.slice(0, 4));
+	}, [foods]);
 
 	return (
 		<>
@@ -80,18 +84,27 @@ function Main() {
 					<Button value="See All" />
 				</div>
 				<div>
-					{foods?.slice(0, 4)?.map(({ item }) => {
-						return (
-							<RestroCard
-								key={item.id}
-								name={item.name}
-								description={item.desc}
-								price={item.price}
-								rating={item.rating}
-								foodImageSource={item.item_image_thumb_url}
-							/>
-						);
-					})}
+					{!restrocards.length ? (
+						<>
+							<RestrocardShimmer />
+							<RestrocardShimmer />
+							<RestrocardShimmer />
+							<RestrocardShimmer />
+						</>
+					) : (
+						restrocards?.slice(0, 4)?.map(({ item }) => {
+							return (
+								<RestroCard
+									key={item.id}
+									name={item.name}
+									description={item.desc}
+									price={item.price}
+									rating={item.rating}
+									foodImageSource={item.item_image_thumb_url}
+								/>
+							);
+						})
+					)}
 				</div>
 			</section>
 			<section>
