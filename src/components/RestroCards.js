@@ -8,9 +8,23 @@ function RestroCard({
 	hotel = "Aarya's Kitchen",
 	price = "xxx",
 	rating = "4.2",
+	id = "0",
+	itemOnClick,
 }) {
 	return (
-		<div>
+		<div
+			onClick={(e) => {
+				e.preventDefault();
+				itemOnClick({
+					name,
+					description,
+					rating,
+					price,
+					foodImageSource,
+					id,
+				});
+			}}
+		>
 			<img src={foodImageSource} alt="meal-image" />
 			<p>{name}</p>
 			<p>{hotel}</p>

@@ -1,11 +1,9 @@
 import Button from "../components/Button";
-import Header from "../components/Header";
 import Description from "../components/Description";
 import DescriptionImage from "../components/DescriptionImage";
 import Feature from "../components/Feature";
 import RestroCard from "../components/RestroCards";
 import Testimonial from "../components/Testimonial";
-import Footer from "../components/Footer";
 
 import Menu from "./Menu";
 import { useEffect, useState } from "react";
@@ -54,7 +52,6 @@ function Main() {
 
 	return (
 		<>
-			<Header />
 			<section>
 				<div>
 					<p>Healthy food for busy people</p>
@@ -122,9 +119,6 @@ function Main() {
 					<Testimonial />
 				</div>
 			</section>
-
-			<Menu menuItems={foods} />
-			<Footer />
 		</>
 	);
 }
